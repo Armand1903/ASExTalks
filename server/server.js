@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+// const jsonwebtoken = require("jsonwebtoken");
 
 const Sequelize = require("sequelize");
 
@@ -12,12 +13,12 @@ const User = sequelize.define("user", {
   username: {
     type: Sequelize.STRING,
   },
-  fullName: {
+  password: {
     type: Sequelize.STRING,
   },
-  type: {
+  role: {
     type: Sequelize.ENUM,
-    values: ["regular-user", "power-user"],
+    values: ["organizer", "reviewer", "author"],
   },
 });
 
@@ -30,19 +31,19 @@ app.get("/sync", async (req, res, next) => {
     await sequelize.sync({ force: true });
     const sampleData = [
       {
-        username: "first-user",
-        fullName: "john doe",
-        type: "regular-user",
+        username: "organizer",
+        password: "abc123",
+        role: "organizer",
       },
       {
-        username: "second-user",
-        fullName: "jane doe",
-        type: "regular-user",
+        username: "reviewer",
+        password: "abc123",
+        role: "reviewer",
       },
       {
-        username: "third-user",
-        fullName: "alice doe",
-        type: "power-user",
+        username: "author",
+        password: "abc123",
+        role: "author",
       },
     ];
     for (const item of sampleData) {
@@ -73,11 +74,61 @@ app.post("/users", async (req, res, next) => {
   }
 });
 
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({
+      where: {
+        username,
+        password,
+      },
+    });
+
+    if (user) {
+      res.json({ profile: { role: user.role } });
+    } else {
+      res.status(401).json({ error: 'Autentificare eșuată' });
+    }
+  } catch (error) {
+    console.error('Eroare la autentificare:', error.message);
+    res.status(500).json({ error: 'Eroare internă a serverului' });
+  }
+});
+
+//   app.post("/login", async (req, res) => {
+  //   const { username, password } = req.body;
+  
+  //   try {
+  //     const user = await User.findOne({
+  //       where: {
+  //         username,
+  //         password,
+  //       },
+  //     });
+  
+  //     if (user) {
+  //       const token = jwt.sign({ username: user.username, role: user.role }, "secret_key");      
+  //       res.json({ token });
+  //     } else {
+  //       res.status(401).json({ error: 'Autentificare eșuată' });
+  //     }
+  //   } catch (error) {
+  //     console.error('Eroare la autentificare:', error.message);
+  //     res.status(500).json({ error: 'Eroare internă a serverului' });
+  //   }
+  // });
+
 app.use((err, req, res, next) => {
   console.warn(err);
   res.status(500).json({ message: "server error" });
 });
 
+
+
 app.listen(8080, () => {
   console.log("The server is listening!");
 });
+
+
+
