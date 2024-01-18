@@ -11,16 +11,14 @@ app.use(express.json());
 
 app.use("/", mainRouter);
 
-app.get("/sync", async (req, res, next) => {
-  try {
-    await sequelize.sync({ force: true });
-    res.status(201).json({ message: "conference db created" });
-  } catch (err) {
-    next(err);
-  }
-});
-
-// app.post("/login", async (req, res) => {
+// app.get("/sync", async (req, res, next) => {
+//   try {
+//     await sequelize.sync({ force: true });
+//     res.status(201).json({ message: "conference db created" });
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 //   const { username, password } = req.body;
 
 //   try {
