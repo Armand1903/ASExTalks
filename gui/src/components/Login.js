@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,8 +25,23 @@ export default function Login({ onLogin }) {
 
       if (response.ok) {
         onLogin(data.profile.role); // Pass the user role to the parent component
+        localStorage.setItem('userRole', data.profile.role);
+        // Redirecționează în funcție de rol
+        switch (data.profile.role) {
+          case 'organizer':
+            navigate('/organizer');
+            break;
+          case 'reviewer':
+            navigate('/reviewer');
+            break;
+          case 'author':
+            navigate('/author');
+            break;
+          default:
+            console.error('Invalid role:', data.profile.role);
+        }
       } else {
-         // Actualizează starea pentru a afișa mesajul de eroare utilizatorului
+        // Actualizează starea pentru a afișa mesajul de eroare utilizatorului
         setErrorMessage('Username sau parola incorecte!');
         console.error('Login failed:', data.error);
       }
