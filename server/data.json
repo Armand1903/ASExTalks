@@ -1,0 +1,172 @@
+{
+    "autors": [
+      {
+        "fullName": "Alice Johnson",
+        "username": "author983",
+        "password": "7v1T5Pw!"
+      },
+      {
+        "fullName": "Bob Smith",
+        "username": "author247",
+        "password": "3eR9qFm@"
+      },
+      {
+        "fullName": "Charlie Davis",
+        "username": "author512",
+        "password": "1oX6zNk#"
+      },
+      {
+        "fullName": "David Miller",
+        "username": "author876",
+        "password": "5hL2mDg$"
+      },
+      {
+        "fullName": "Eva Brown",
+        "username": "author419",
+        "password": "9aW7oBc%"
+      }
+    ],
+    "organizators": [
+      {
+        "fullName": "Olivia Wilson",
+        "username": "organizator573",
+        "password": "2qT8pJs!"
+      },
+      {
+        "fullName": "Frank Garcia",
+        "username": "organizator126",
+        "password": "6kZ4yLf@"
+      },
+      {
+        "fullName": "Grace Taylor",
+        "username": "organizator890",
+        "password": "8iY1xBm#"
+      },
+      {
+        "fullName": "Harry Lewis",
+        "username": "organizator654",
+        "password": "4cK9vEn$"
+      },
+      {
+        "fullName": "Isabel Anderson",
+        "username": "organizator237",
+        "password": "1wP5rUo%"
+      }
+    ],
+    "reviewers": [
+      {
+        "fullName": "Jack Robinson",
+        "username": "reviewer318",
+        "password": "7zG1aXw!"
+      },
+      {
+        "fullName": "Kelly Martinez",
+        "username": "reviewer572",
+        "password": "3qH9pBf@"
+      },
+      {
+        "fullName": "Leo Davis",
+        "username": "reviewer835",
+        "password": "1oL6xNk#"
+      },
+      {
+        "fullName": "Mia White",
+        "username": "reviewer697",
+        "password": "5hT2mDg$"
+      },
+      {
+        "fullName": "Nathan Adams",
+        "username": "reviewer124",
+        "password": "9aX7oBc%"
+      }
+    ],
+    "articols": [
+      {
+        "title": "Lorem Ipsum",
+        "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "status": true,
+        "feedback": "Great article! Well-written and informative."
+      },
+      {
+        "title": "Web Development Trends",
+        "body": "Explore the latest trends in web development, from frontend frameworks to serverless architecture.",
+        "status": false,
+        "feedback": "Needs improvement in code structure."
+      },
+      {
+        "title": "The Future of AI",
+        "body": "Artificial Intelligence is advancing rapidly. What does the future hold for AI applications?",
+        "status": true,
+        "feedback": "Fascinating insights into the future of AI."
+      },
+      {
+        "title": "Healthy Living Tips",
+        "body": "Discover simple and effective tips for maintaining a healthy lifestyle, from nutrition to exercise.",
+        "status": false,
+        "feedback": "Lacks depth in nutritional advice."
+      },
+      {
+        "title": "Space Exploration",
+        "body": "Journey into the cosmos and learn about the latest discoveries in space exploration.",
+        "status": true,
+        "feedback": "Engaging and well-researched."
+      }
+    ],
+    "conferintas": [
+      {
+        "nume": "International Tech Summit",
+        "descriere": "Join industry experts to discuss the latest advancements in technology and innovation.",
+        "autors": [1, 3, 5],
+        "reviewers": [2, 4]
+      },
+      {
+        "nume": "Health and Wellness Conference",
+        "descriere": "Explore holistic approaches to health and wellness, featuring renowned speakers.",
+        "autors": [2, 4],
+        "reviewers": [1, 3, 5]
+      }
+    ],
+    "reviewArticles":[
+        {
+        "reviewerId":"3",
+        "articolId" :"1"
+        },
+        {
+            "reviewerId":"4",
+            "articolId" :"1"
+        },
+        {
+            "reviewerId":"1",
+            "articolId" :"2"
+        },
+        {
+            "reviewerId":"5",
+            "articolId" :"2"
+        },
+        {
+            "reviewerId":"1",
+            "articolId" :"3"
+        },
+        {
+            "reviewerId":"4",
+            "articolId" :"3"
+        },
+        {
+            "reviewerId":"5",
+            "articolId" :"4"
+        },
+        {
+            "reviewerId":"1",
+            "articolId" :"4"
+        },
+        {
+            "reviewerId":"3",
+            "articolId" :"5"
+        },
+        {
+            "reviewerId":"2",
+            "articolId" :"5"
+        }
+    ]
+  }
+  
