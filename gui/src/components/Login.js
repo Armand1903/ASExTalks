@@ -41,7 +41,6 @@ export default function Login({ onLogin }) {
             console.error("Invalid role:", data.role);
         }
       } else {
-        // Actualizează starea pentru a afișa mesajul de eroare utilizatorului
         setErrorMessage("Username sau parola incorecte!");
         console.error("Login failed:", data.error);
       }
