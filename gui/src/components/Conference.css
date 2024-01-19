@@ -1,39 +1,41 @@
 .regular-user {
-    height: 200px;
-    width: 200px;
-    background-color: lightblue;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: row wrap;
-    padding: 10px;
-  }
-  
-  .regular-user .username {
-    height: 80px;
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: lightskyblue;
-  }
-  
-  .regular-user .fullName {
-    height: 80px;
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: lightsteelblue;
-  }
+  height: 200px;
+  width: 200px;
+  background-color: lightblue;
+  margin: 10px;
+  display: flex;
+  flex-direction: column; /* Modificați direcția flex container-ului la coloană */
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}
 
-  .conference .username,
-.conference .fullName {
-  color: rgb(0, 0, 0); /* Schimbă culoarea textului pentru username și fullName */
-  text-decoration: none; /* Elimină sublinierea specifică link-urilor */
+.regular-user .username,
+.regular-user .fullName {
+  width: 100%; /* Asigurați-vă că lățimea este setată la 100% */
+  text-align: center; /* Centrare text */
+  overflow: auto; /* Adăugați bara de derulare doar dacă este necesar */
+}
+
+.regular-user .username {
+  height: 80px;
+  background-color: #00ADB5;
+  padding: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 2px;
+  color: white;
+}
+
+.regular-user .fullName {
+  height: 100%; /* Folosiți înălțimea 100% pentru a umple spațiul disponibil */
+  background-color: lightsteelblue;
+  padding: 8px;
+  color: black;
+  font-size: 0.8rem;
+  border-radius: 2px;
 }
 
 .conference-list a{
-  text-decoration: none!important;
+  text-decoration: none;
 }

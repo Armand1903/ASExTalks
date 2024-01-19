@@ -25,20 +25,6 @@ function OrganizerInterface (props) {
     }
   };
 
-  const addConference = async conference => {
-    await fetch(`${SERVER}/conferences`, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(conference)
-    })
-    getConferences()
-  }
-
-  // if useEffect is called with an empty dependencies array, it will run the
-  //callback only once, when the component is rendered for the first time
-
   useEffect(() => {
     getConferences() // fetch the data from the express server (start the server first!)
   }, [])
@@ -47,7 +33,7 @@ function OrganizerInterface (props) {
     <div>
       <h3>Organizer Interface</h3>
       <div className='add-conference'>
-        <Link to="/add-conference">Add User</Link>
+        <Link to="/add-conference">Adauga conferinta</Link>
       </div>
       <div className='conference-list'>
       
