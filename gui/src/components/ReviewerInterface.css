@@ -1,0 +1,9 @@
+.article-list {
+    display: flex;
+    flex-wrap: wrap; /* To allow wrapping to the next line if needed */
+    justify-content: space-around; /* Adjust as needed */
+  }
+  
+  .article-list a {
+    text-decoration: none!important;
+  }
