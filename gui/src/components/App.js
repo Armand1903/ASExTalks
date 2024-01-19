@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Login from './Login';
-import OrganizerInterface from './OrganizerInterface';
-import ReviewerInterface from './ReviewerInterface';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import AuthorInterface from './AuthorInterface';
-import ConferenceInterface from './ConferenceInterface';
-import AddConference from './AddConference'; 
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Login from "./Login";
+import OrganizerInterface from "./OrganizerInterface";
+import ReviewerInterface from "./ReviewerInterface";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import AuthorInterface from "./AuthorInterface";
+import ConferenceInterface from "./ConferenceInterface";
+import ArticleInterface from "./ArticleInterface";
+import AddConference from "./AddConference";
+import "./App.css";
 
 export default function App() {
   const [userRole, setUserRole] = useState(null);
@@ -15,13 +16,13 @@ export default function App() {
     setUserRole(role);
 
     // Salvăm rolul utilizatorului în localStorage
-    localStorage.setItem('userRole', role);
+    localStorage.setItem("userRole", role);
   };
 
   const checkUserRoleFromStorage = () => {
     // Verificăm dacă există informații despre utilizator în localStorage
-    const storedUserRole = localStorage.getItem('userRole');
-    
+    const storedUserRole = localStorage.getItem("userRole");
+
     if (storedUserRole) {
       setUserRole(storedUserRole);
     }
@@ -31,14 +32,12 @@ export default function App() {
     checkUserRoleFromStorage();
   }, []);
 
-
   return (
     <Router>
       <div className="App">
         <header className="App-header">
-          <h1 className='Logo'>ASExTalks</h1>
+          <h1 className="Logo">ASExTalks</h1>
           <Routes>
-         
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             {userRole ? (
               <>
@@ -49,8 +48,9 @@ export default function App() {
             ) : (
               <Route path="/*" element={<Navigate to="/login" replace />} />
             )}
-             <Route path="/add-conference" element={<AddConference />} />
-             <Route path="/conferenceInterface/:id" element={<ConferenceInterface />} />
+            <Route path="/add-conference" element={<AddConference />} />
+            <Route path="/conferenceInterface/:id" element={<ConferenceInterface />} />
+            <Route path="/articleInterface/:id" element={<ArticleInterface />} />
           </Routes>
         </header>
       </div>

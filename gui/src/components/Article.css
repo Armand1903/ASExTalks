@@ -1,0 +1,52 @@
+.regular-user {
+    height: 200px;
+    width: 200px;
+    background-color: lightblue;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  .regular-user .username {
+    height: 80px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightskyblue;
+  }
+  
+  .regular-user .fullName {
+    height: 80px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightsteelblue;
+  }
+  
+  .article {
+    /* Assuming 'article' class is used for the container of each article */
+    height: 200px;
+    width: 200px;
+    background-color: lightblue;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap; /* Display children in a row */
+    padding: 10px;
+  }
+  
+  .article .username,
+  .article .fullName {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+  }
+  
+  .article-list a {
+    text-decoration: none!important;
+  }
+  

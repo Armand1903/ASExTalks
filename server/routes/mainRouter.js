@@ -194,6 +194,82 @@ router.get('/freeReviewers', async (req, res) => {
     }
   });
   
+  router.get("/reviewer/:idReviewer/getArticles", async (req, res) => {
+    try {
+      const idReview = req.params.idReviewer;
+      const reviewer = await Reviewer.findByPk(idReview); // Added 'await' to ensure the Promise is resolved
+      if(!reviewer){
+        return res.status(400).json({ error: 'nu exista date' });
+      }
+      const conferintaId = reviewer.conferintumId;
+      const articles = await Articol.findAll({
+        where: { conferintumId: conferintaId },
+      });
+  
+      res.status(200).json(articles);
+  
+    } catch (error) {
+      console.error('Error getting the articles:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
+  //nefunctional
+  router.post("articles/:idArticol/changeStatus", async (req, res) => {
+    try {
+
+    } catch (error) {
+      console.error('Error getting the articles:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  //nefunctional
+  router.put("/articles/:givenId/updateFeedback", async (req, res) => {
+    try {
+      const { givenId } = req.params.givenId;
+      const { newFeedback } = req.body;
+  
+      const [updatedRowsCount, updatedArticles] = await Articol.update(
+        { feedback: newFeedback },
+        { returning: true, where: { id: givenId } }
+      );
+  
+      // Check if any rows were affected (updated)
+      if (updatedRowsCount === 0) {
+        return res.status(404).json({ error: 'Article not found' });
+      }
+  
+      // Send the updated article as a response if needed
+      const updatedArticle = updatedArticles[0];
+      res.status(200).json({ success: true, updatedArticle });
+    } catch (error) {
+      console.error('Error updating article feedback:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  //nefunctional
+  const updateArticol = async (req, res, next) => {
+    try {
+      const articol = await Articol.findByPk(req.params.id);
+      if (articol) {
+        // Check if req.body.feedback is provided
+        if (req.body.feedback !== undefined) {
+          // If feedback is provided, update only the feedback field
+          await articol.update({ feedback: req.body.feedback });
+        } else {
+          // Otherwise, update the entire articol with the data from req.body
+          await articol.update(req.body);
+        }
+  
+        res.status(200).json(articol);
+      } else {
+        res.status(404).json({ message: "Articol not found" });
+      }
+    } catch (err) {
+      next(err);
+    }
+  };
 
 module.exports = router;
