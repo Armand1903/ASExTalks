@@ -8,7 +8,7 @@ const articol = require("./articolRouter");
 const conferinta = require("./conferintaRouter");
 const organizator = require("./organizatorRouter");
 const reviewer = require("./reviewerRouter");
-const { Autor, Reviewer } = require("../models");
+//const { Autor, Reviewer } = require("../models");
 
 // Define routes for autor
 router.post("/autors", autor.createAutor);
@@ -116,7 +116,7 @@ router.get('/freeReviewers', async (req, res) => {
       // Find reviewers where conferenceId is NULL
       const reviewersWithoutConference = await Reviewer.findAll({
         where: {
-            conferintumId: 2,
+            conferintumId: null,
         },
       });
   
@@ -130,5 +130,48 @@ router.get('/freeReviewers', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
+
+
+
+  //functia pentru alocare automata a 2 revieweri
+  // exemplu de body {"reviewerIds": [1, 5]}
+  router.post("/articol/:idArticol/allocateReviewers", async (req, res) => {
+    try {
+      const idArticol = req.params.idArticol;
+      const reviewerIds = req.body.reviewerIds; // Assuming reviewerIds is an array in the request body
+  
+      const articol = await Articol.findByPk(idArticol);
+  
+      if (!articol) {
+        return res.status(404).json({ error: 'Articolul cu id ul selectat nu a fost gasit' });
+      }
+  
+      // Check if the array contains exactly 2 reviewer IDs
+      if (!Array.isArray(reviewerIds) || reviewerIds.length !== 2) {
+        return res.status(400).json({ error: 'Please provide exactly 2 reviewer IDs' });
+      }
+  
+      // Use the method addReviewers to associate reviewers with the article
+      await articol.addReviewers(reviewerIds);
+  
+      res.status(200).json({ message: 'Reviewers added to the article successfully' });
+    } catch (error) {
+      console.error('Error updating reviewers for the article:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+
+  router.put("/reviewer/:id/feedback&status", async (req, res) => {
+    try{
+
+
+    }catch (error) {
+      console.error('Error updating feedback and status for the article:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
+
 
 module.exports = router;
