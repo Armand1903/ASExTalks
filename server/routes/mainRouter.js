@@ -6,6 +6,7 @@ const articol = require("./articolRouter");
 const conferinta = require("./conferintaRouter");
 const organizator = require("./organizatorRouter");
 const reviewer = require("./reviewerRouter");
+const { Autor, Reviewer } = require("../models");
 
 // Define routes for autor
 router.post("/autors", autor.createAutor);
@@ -42,5 +43,28 @@ router.get("/reviewers", reviewer.getRevieweri);
 router.get("/reviewers/:id", reviewer.getReviewer);
 router.put("/reviewers/:id", reviewer.updateReviewer);
 router.delete("/reviewers/:id", reviewer.deleteReviewer);
+
+//Complex routes
+  router.get('/freeReviewers', async (req, res) => {
+    try {
+      // Find reviewers where conferenceId is NULL
+      const reviewersWithoutConference = await Reviewer.findAll({
+        where: {
+            conferintumId: 2,
+        },
+      });
+  
+      if (reviewersWithoutConference.length === 0) {
+        return res.status(404).json({ error: 'No reviewers found without conferences' });
+      }
+  
+      res.status(200).json(reviewersWithoutConference);
+    } catch (error) {
+      console.error('Error fetching reviewers:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  
 
 module.exports = router;
