@@ -82,44 +82,46 @@ function AddConference() {
 
   return (
     <div>
-      <h1>Add User Page</h1>
-      <form onSubmit={handleAddUser}>
-        <div className="input-area">
-          <label>Titlul articolului:</label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        </div>
-        <div className="input-area">
-          <label>Textul articolului:</label>
-          <textarea id="article-text" rows="15" cols="70" value={description} onChange={(e) => setDescription(e.target.value)} />
-        </div>
-        <div className="input-area">
-          <label>Revieweri:</label>
-          <div className="dropdown-container">
-            <div className="dropdown-header" onClick={toggleDropdown}>
-              Selectează Revieweri
-            </div>
-            {isDropdownOpen && (
-              <div className="dropdown-list">
-                {reviewers.map((reviewer) => (
-                  <div key={reviewer.id}>
-                    <input
-                      type="checkbox"
-                      id={reviewer.id}
-                      value={reviewer.id}
-                      checked={selectedReviewers.includes(reviewer.id)}
-                      onChange={() => handleReviewerChange(reviewer.id)}
-                    />
-                    <label htmlFor={reviewer.id}>{reviewer.fullName}</label>
-                  </div>
-                ))}
-              </div>
-            )}
+      <h3>Adauga conferinta</h3>
+      <div className="add-conference">
+        <form onSubmit={handleAddUser} id="form-add-conference">
+          <div className="input-area">
+            <label className="add-conference-label">Titlul conferintei:</label>
+            <input className="input-add-conference" type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
+          <div className="input-area">
+            <label className="add-conference-label">Descrierea conferintei:</label>
+            <textarea className="input-add-conference" id="article-text" rows="10" cols="50" value={description} onChange={(e) => setDescription(e.target.value)} />
+          </div>
+          <div className="input-area">
+            <div className="dropdown-container">
+              <div className="dropdown-header" onClick={toggleDropdown}>
+                Selectează Revieweri
+              </div>
+              {isDropdownOpen && (
+                <div className="dropdown-list">
+                  {reviewers.map((reviewer) => (
+                    <div key={reviewer.id}>
+                      <input
+                        className="input-add-conference"
+                        type="checkbox"
+                        id={reviewer.id}
+                        value={reviewer.id}
+                        checked={selectedReviewers.includes(reviewer.id)}
+                        onChange={() => handleReviewerChange(reviewer.id)}
+                      />
+                      <label htmlFor={reviewer.id}>{reviewer.fullName}</label>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+          <div>
+            <button type="submit">Add Conference</button>
+          </div>
+        </form>
         </div>
-        <div>
-          <button type="submit">Add Conference</button>
-        </div>
-      </form>
     </div>
   );
 }

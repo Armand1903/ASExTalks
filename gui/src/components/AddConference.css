@@ -1,9 +1,106 @@
-form{
+#form-add-conference{
     padding:1.5rem;
 }
 
+h3{
+    text-align: center;
+    margin: 1.2rem;
+}
 .input-area{
     margin: 1.2rem;
 }
 
+textarea .input-add-conference {
+    padding: 5px;
+}
 
+.dropdown-list input{
+display: inline;
+width: 60%;
+height: 25px;
+}
+
+.dropdown-list label{
+    color: black;
+}
+
+/* Stilizează containerul formularului */
+#form-add-conference {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Stilizează etichetele și input-urile */
+  .input-area {
+    margin-bottom: 15px;
+  }
+  
+.add-conference-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+.input-add-conference {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .dropdown-container {
+    position: relative;
+  }
+  
+  .dropdown-header {
+    cursor: pointer;
+    padding: 8px;
+    background-color: #25cee4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+  
+  .dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px; /* Adaugă o înălțime maximă */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Adaugă un overflow-y pentru scrollbar */
+    z-index: 1;
+  }
+  
+  .dropdown-list div {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Stilizează butonul de submit */
+  button {
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  

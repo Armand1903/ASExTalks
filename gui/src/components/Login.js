@@ -51,7 +51,7 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div className="text-center m-5-auto">
+    <div className="text-center m-5-auto login">
       <h2>Sign in to us</h2>
       <form onSubmit={handleSubmit}>
         <p className="form-element">

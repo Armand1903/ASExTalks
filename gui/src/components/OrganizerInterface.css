@@ -3,3 +3,30 @@
     flex-flow: row wrap;
     max-width: 100vw;
   }
+
+.add-conference {
+  margin-bottom: 20px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-conference a {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+/* Stilizează link-ul la hover */
+.add-conference a:hover {
+  background-color: #2980b9;
+}
+
+  
