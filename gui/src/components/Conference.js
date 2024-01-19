@@ -8,12 +8,11 @@ function User(props) {
     <div className="conference">
         <div className='regular-user'>
       <div className='username'>
-        {item.username}
+        {item.nume}
       </div>
       <div className='fullName'>
-        {item.password}
+        {item.descriere}
       </div>
-      Regular user
     </div>
     </div>
   );

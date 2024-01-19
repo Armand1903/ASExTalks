@@ -4,6 +4,7 @@ import OrganizerInterface from './OrganizerInterface';
 import ReviewerInterface from './ReviewerInterface';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import AuthorInterface from './AuthorInterface';
+import ConferenceInterface from './ConferenceInterface';
 import AddConference from './AddConference'; 
 import './App.css';
 
@@ -49,6 +50,7 @@ export default function App() {
               <Route path="/*" element={<Navigate to="/login" replace />} />
             )}
              <Route path="/add-conference" element={<AddConference />} />
+             <Route path="/conferenceInterface/:id" element={<ConferenceInterface />} />
           </Routes>
         </header>
       </div>

@@ -10,10 +10,20 @@ function OrganizerInterface (props) {
   const [conferences, setConferences] = useState([])
 
   const getConferences = async () => {
-    const response = await fetch(`${SERVER}/users`)
-    const data = await response.json()
-    setConferences(data)
-  }
+    try {
+      const response = await fetch(`${SERVER}/organizers/${localStorage.userId}/allConferinte`);
+      const data = await response.json();
+
+      // Verificați dacă există cheia "conferences" în răspuns
+      if (data && data.conferences) {
+        setConferences(data.conferences);
+      } else {
+        console.error("Răspunsul nu conține cheia așteptată.");
+      }
+    } catch (error) {
+      console.error("Eroare la preluarea conferințelor:", error);
+    }
+  };
 
   const addConference = async conference => {
     await fetch(`${SERVER}/conferences`, {

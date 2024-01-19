@@ -131,6 +131,28 @@ router.get('/freeReviewers', async (req, res) => {
     }
   });
 
+  router.put("/reviewers/:id", async (req, res) => {
+    const { id } = req.params;
+    const { conferintumId } = req.body;
+  
+    try {
+      const reviewer = await Reviewer.findByPk(id);
+  
+      if (!reviewer) {
+        return res.status(404).json({ error: "Reviewer not found" });
+      }
+  
+      // Actualizează conferintumId pentru recenzor
+      reviewer.conferintumId = conferintumId;
+      await reviewer.save();
+  
+      res.status(200).json(reviewer);
+    } catch (error) {
+      console.error("Error updating reviewer:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
 
 
   //functia pentru alocare automata a 2 revieweri

@@ -27,3 +27,13 @@
     justify-content: center;
     background-color: lightsteelblue;
   }
+
+  .conference .username,
+.conference .fullName {
+  color: rgb(0, 0, 0); /* Schimbă culoarea textului pentru username și fullName */
+  text-decoration: none; /* Elimină sublinierea specifică link-urilor */
+}
+
+.conference-list a{
+  text-decoration: none!important;
+}
