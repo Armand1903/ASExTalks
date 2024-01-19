@@ -25,6 +25,7 @@ export default function Login({ onLogin }) {
       if (response.ok) {
         onLogin(data.role); // Pass the user role to the parent component
         localStorage.setItem("userRole", data.role);
+        localStorage.setItem("userId", data.id);
         // Redirecționează în funcție de rol
         switch (data.role) {
           case "organizer":

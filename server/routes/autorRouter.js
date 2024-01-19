@@ -32,6 +32,20 @@ const getAutor = async (req, res, next) => {
   }
 };
 
+const getAutorByUsername = async (req, res, next) => {
+  try {
+    const usernameAutor = re
+    const autor = await Autor.findByPk(req.params.id);
+    if (autor) {
+      res.status(200).json(autor);
+    } else {
+      res.status(404).json({ message: "Autor not found" });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const updateAutor = async (req, res, next) => {
   try {
     const autor = await Autor.findByPk(req.params.id);
@@ -64,6 +78,7 @@ module.exports = {
   createAutor,
   getAutors,
   getAutor,
+  getAutorByUsername,
   updateAutor,
   deleteAutor,
 };
