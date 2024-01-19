@@ -7,40 +7,40 @@ function ArticleInterface() {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
   const [feedback, setFeedback] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const getArticleDetails = async () => {
     const response = await fetch(`${SERVER}/articles/${id}`);
     const data = await response.json();
     setArticle(data);
+    setIsChecked(data.status === 1);
+    setFeedback(""); // Initialize feedback with existing feedback if any
   };
 
-  const handleFeedbackSubmit = async () => {
-    // Assuming you have an API endpoint for submitting feedback
-    await fetch(`${SERVER}/articles/${id}`, {
+  const handleUpdate = async () => {
+    const updatedArticle = {
+      ...article,
+      feedback: feedback,
+      status: isChecked ? 1 : 0,
+    };
+
+    await fetch(`${SERVER}/articles/${updatedArticle.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ feedback }),
+      body: JSON.stringify(updatedArticle),
     });
 
-    // Optional: You might want to refresh article details after submitting feedback
     getArticleDetails();
   };
 
-  const handleStatusChange = async () => {
-    // Assuming you have an API endpoint for changing the article status
-    await fetch(`${SERVER}/articles/${id}/changeStatus`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Optional: You can include a request body if needed
-      // body: JSON.stringify({ newStatus: 'someNewStatus' }),
-    });
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
 
-    // Optional: You might want to refresh article details after changing status
-    getArticleDetails();
+  const handleFeedbackChange = (event) => {
+    setFeedback(event.target.value);
   };
 
   useEffect(() => {
@@ -58,19 +58,29 @@ function ArticleInterface() {
         <h4>{article.title}</h4>
         <p>{article.body}</p>
 
-        {article.status === 1 && (
-          <div>
-            <input
-              type="text"
-              placeholder="Enter your feedback"
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-            />
-            <button onClick={handleFeedbackSubmit}>Give Feedback</button>
-          </div>
-        )}
+        <input
+          type="text"
+          placeholder="Enter your feedback"
+          style={{ width: "300px", height: "40px", padding: "5px", margin: "10px" }}
+          value={feedback}
+          onChange={handleFeedbackChange}
+        />
+      </div>
+      <label
+        htmlFor="approvalCheckbox"
+        // style={{ display: "flex", alignItems: "center", gap: "5px" }}
+      >
+        <input
+          type="checkbox"
+          id="approvalCheckbox"
+          checked={isChecked}
+          onChange={handleCheckboxChange}
+        />
+        {isChecked ? "Aprobat" : "Neaprobat"}
+      </label>
 
-        <button onClick={handleStatusChange}>Change Status</button>
+      <div>
+        <button onClick={handleUpdate}>Actualizează articol</button>
       </div>
     </div>
   );
