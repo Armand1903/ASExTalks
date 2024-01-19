@@ -8,7 +8,7 @@ const articol = require("./articolRouter");
 const conferinta = require("./conferintaRouter");
 const organizator = require("./organizatorRouter");
 const reviewer = require("./reviewerRouter");
-//const { Autor, Reviewer } = require("../models");
+
 
 // Define routes for autor
 router.post("/autors", autor.createAutor);
