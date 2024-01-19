@@ -9,7 +9,6 @@ const conferinta = require("./conferintaRouter");
 const organizator = require("./organizatorRouter");
 const reviewer = require("./reviewerRouter");
 
-
 // Define routes for autor
 router.post("/autors", autor.createAutor);
 router.get("/autors", autor.getAutors);
@@ -111,165 +110,101 @@ router.get("/organizers/:id/allConferinte/allArticles", async (req, res) => {
   }
 });
 
-router.get('/freeReviewers', async (req, res) => {
-    try {
-      // Find reviewers where conferenceId is NULL
-      const reviewersWithoutConference = await Reviewer.findAll({
-        where: {
-            conferintumId: null,
-        },
-      });
-  
-      if (reviewersWithoutConference.length === 0) {
-        return res.status(404).json({ error: 'No reviewers found without conferences' });
-      }
-  
-      res.status(200).json(reviewersWithoutConference);
-    } catch (error) {
-      console.error('Error fetching reviewers:', error);
-      res.status(500).json({ error: 'Internal server error' });
+router.get("/freeReviewers", async (req, res) => {
+  try {
+    // Find reviewers where conferenceId is NULL
+    const reviewersWithoutConference = await Reviewer.findAll({
+      where: {
+        conferintumId: null,
+      },
+    });
+
+    if (reviewersWithoutConference.length === 0) {
+      return res.status(404).json({ error: "No reviewers found without conferences" });
     }
-  });
 
-  router.put("/reviewers/:id", async (req, res) => {
-    const { id } = req.params;
-    const { conferintumId } = req.body;
-  
-    try {
-      const reviewer = await Reviewer.findByPk(id);
-  
-      if (!reviewer) {
-        return res.status(404).json({ error: "Reviewer not found" });
-      }
-  
-      // Actualizează conferintumId pentru recenzor
-      reviewer.conferintumId = conferintumId;
-      await reviewer.save();
-  
-      res.status(200).json(reviewer);
-    } catch (error) {
-      console.error("Error updating reviewer:", error);
-      res.status(500).json({ error: "Internal server error" });
+    res.status(200).json(reviewersWithoutConference);
+  } catch (error) {
+    console.error("Error fetching reviewers:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.put("/reviewers/:id", async (req, res) => {
+  const { id } = req.params;
+  const { conferintumId } = req.body;
+
+  try {
+    const reviewer = await Reviewer.findByPk(id);
+
+    if (!reviewer) {
+      return res.status(404).json({ error: "Reviewer not found" });
     }
-  });
 
+    // Actualizează conferintumId pentru recenzor
+    reviewer.conferintumId = conferintumId;
+    await reviewer.save();
 
+    res.status(200).json(reviewer);
+  } catch (error) {
+    console.error("Error updating reviewer:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
-  //functia pentru alocare automata a 2 revieweri
-  // exemplu de body {"reviewerIds": [1, 5]}
-  router.post("/articol/:idArticol/allocateReviewers", async (req, res) => {
-    try {
-      const idArticol = req.params.idArticol;
-      const reviewerIds = req.body.reviewerIds; // Assuming reviewerIds is an array in the request body
-  
-      const articol = await Articol.findByPk(idArticol);
-  
-      if (!articol) {
-        return res.status(404).json({ error: 'Articolul cu id ul selectat nu a fost gasit' });
-      }
-  
-      // Check if the array contains exactly 2 reviewer IDs
-      if (!Array.isArray(reviewerIds) || reviewerIds.length !== 2) {
-        return res.status(400).json({ error: 'Please provide exactly 2 reviewer IDs' });
-      }
-  
-      // Use the method addReviewers to associate reviewers with the article
-      await articol.addReviewers(reviewerIds);
-  
-      res.status(200).json({ message: 'Reviewers added to the article successfully' });
-    } catch (error) {
-      console.error('Error updating reviewers for the article:', error);
-      res.status(500).json({ error: 'Internal server error' });
+//functia pentru alocare automata a 2 revieweri
+// exemplu de body {"reviewerIds": [1, 5]}
+router.post("/articol/:idArticol/allocateReviewers", async (req, res) => {
+  try {
+    const idArticol = req.params.idArticol;
+    const reviewerIds = req.body.reviewerIds; // Assuming reviewerIds is an array in the request body
+
+    const articol = await Articol.findByPk(idArticol);
+
+    if (!articol) {
+      return res.status(404).json({ error: "Articolul cu id ul selectat nu a fost gasit" });
     }
-  });
 
-
-  router.put("/reviewer/:id/feedback&status", async (req, res) => {
-    try{
-
-
-    }catch (error) {
-      console.error('Error updating feedback and status for the article:', error);
-      res.status(500).json({ error: 'Internal server error' });
+    // Check if the array contains exactly 2 reviewer IDs
+    if (!Array.isArray(reviewerIds) || reviewerIds.length !== 2) {
+      return res.status(400).json({ error: "Please provide exactly 2 reviewer IDs" });
     }
-  });
-  
-  router.get("/reviewer/:idReviewer/getArticles", async (req, res) => {
-    try {
-      const idReview = req.params.idReviewer;
-      const reviewer = await Reviewer.findByPk(idReview); // Added 'await' to ensure the Promise is resolved
-      if(!reviewer){
-        return res.status(400).json({ error: 'nu exista date' });
-      }
-      const conferintaId = reviewer.conferintumId;
-      const articles = await Articol.findAll({
-        where: { conferintumId: conferintaId },
-      });
-  
-      res.status(200).json(articles);
-  
-    } catch (error) {
-      console.error('Error getting the articles:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
 
-  //nefunctional
-  router.post("articles/:idArticol/changeStatus", async (req, res) => {
-    try {
+    // Use the method addReviewers to associate reviewers with the article
+    await articol.addReviewers(reviewerIds);
 
-    } catch (error) {
-      console.error('Error getting the articles:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
+    res.status(200).json({ message: "Reviewers added to the article successfully" });
+  } catch (error) {
+    console.error("Error updating reviewers for the article:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
-  //nefunctional
-  router.put("/articles/:givenId/updateFeedback", async (req, res) => {
-    try {
-      const { givenId } = req.params.givenId;
-      const { newFeedback } = req.body;
-  
-      const [updatedRowsCount, updatedArticles] = await Articol.update(
-        { feedback: newFeedback },
-        { returning: true, where: { id: givenId } }
-      );
-  
-      // Check if any rows were affected (updated)
-      if (updatedRowsCount === 0) {
-        return res.status(404).json({ error: 'Article not found' });
-      }
-  
-      // Send the updated article as a response if needed
-      const updatedArticle = updatedArticles[0];
-      res.status(200).json({ success: true, updatedArticle });
-    } catch (error) {
-      console.error('Error updating article feedback:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  });
+router.put("/reviewer/:id/feedback&status", async (req, res) => {
+  try {
+  } catch (error) {
+    console.error("Error updating feedback and status for the article:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
-  //nefunctional
-  const updateArticol = async (req, res, next) => {
-    try {
-      const articol = await Articol.findByPk(req.params.id);
-      if (articol) {
-        // Check if req.body.feedback is provided
-        if (req.body.feedback !== undefined) {
-          // If feedback is provided, update only the feedback field
-          await articol.update({ feedback: req.body.feedback });
-        } else {
-          // Otherwise, update the entire articol with the data from req.body
-          await articol.update(req.body);
-        }
-  
-        res.status(200).json(articol);
-      } else {
-        res.status(404).json({ message: "Articol not found" });
-      }
-    } catch (err) {
-      next(err);
+router.get("/reviewer/:idReviewer/getArticles", async (req, res) => {
+  try {
+    const idReview = req.params.idReviewer;
+    const reviewer = await Reviewer.findByPk(idReview); // Added 'await' to ensure the Promise is resolved
+    if (!reviewer) {
+      return res.status(400).json({ error: "nu exista date" });
     }
-  };
+    const conferintaId = reviewer.conferintumId;
+    const articles = await Articol.findAll({
+      where: { conferintumId: conferintaId },
+    });
+
+    res.status(200).json(articles);
+  } catch (error) {
+    console.error("Error getting the articles:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 module.exports = router;
