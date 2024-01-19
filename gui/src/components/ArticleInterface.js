@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const SERVER = 'http://localhost:8080';
+const SERVER = "http://localhost:8080";
 
 function ArticleInterface() {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
 
   const getArticleDetails = async () => {
     const response = await fetch(`${SERVER}/articles/${id}`);
@@ -14,36 +14,34 @@ function ArticleInterface() {
     setArticle(data);
   };
 
-//   const handleFeedbackSubmit = async () => {
-//     // Assuming you have an API endpoint for submitting feedback
-//     await fetch(`${SERVER}/articles/${id}/feedback`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ feedback }),
-//     });
+  const handleFeedbackSubmit = async () => {
+    // Assuming you have an API endpoint for submitting feedback
+    await fetch(`${SERVER}/articles/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ feedback }),
+    });
 
-//     // Optional: You might want to refresh article details after submitting feedback
-//     getArticleDetails();
-//   };
+    // Optional: You might want to refresh article details after submitting feedback
+    getArticleDetails();
+  };
 
+  const handleStatusChange = async () => {
+    // Assuming you have an API endpoint for changing the article status
+    await fetch(`${SERVER}/articles/${id}/changeStatus`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Optional: You can include a request body if needed
+      // body: JSON.stringify({ newStatus: 'someNewStatus' }),
+    });
 
-
-//   const handleStatusChange = async () => {
-//     // Assuming you have an API endpoint for changing the article status
-//     await fetch(`${SERVER}/articles/${id}/changeStatus`, {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       // Optional: You can include a request body if needed
-//       // body: JSON.stringify({ newStatus: 'someNewStatus' }),
-//     });
-
-//     // Optional: You might want to refresh article details after changing status
-//     getArticleDetails();
-//   };
+    // Optional: You might want to refresh article details after changing status
+    getArticleDetails();
+  };
 
   useEffect(() => {
     getArticleDetails();
@@ -59,9 +57,8 @@ function ArticleInterface() {
       <div>
         <h4>{article.title}</h4>
         <p>{article.body}</p>
-       
 
-        {/*{{article.status === 1 && (
+        {article.status === 1 && (
           <div>
             <input
               type="text"
@@ -73,7 +70,7 @@ function ArticleInterface() {
           </div>
         )}
 
-        <button onClick={handleStatusChange}>Change Status</button> }*/}
+        <button onClick={handleStatusChange}>Change Status</button>
       </div>
     </div>
   );
