@@ -5,6 +5,8 @@ const mainRouter = require("./routes/mainRouter");
 
 const { sequelize, Organizator, Autor, Reviewer } = require("./models");
 
+let id;
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -59,7 +61,7 @@ app.post("/login", async (req, res) => {
       },
       model: Autor,
     });
-
+    
     const reviewer = await Reviewer.findOne({
       where: {
         username,
@@ -69,11 +71,14 @@ app.post("/login", async (req, res) => {
     });
 
     if (organizator) {
-      res.json({ role: "organizer" });
+      id=organizator.id;
+      res.json({ role: "organizer" ,id:`${id}`});
     } else if (autor) {
-      res.json({ role: "author" });
+      id=autor.id;
+      res.json({ role: "author" ,id:`${id}`});
     } else if (reviewer) {
-      res.json({ role: "reviewer" });
+      id=reviewer.id;
+      res.json({ role: "reviewer" ,id:`${id}`});
     } else {
       res.status(401).json({ error: "Autentificare eșuată" });
     }

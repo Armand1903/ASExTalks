@@ -13,6 +13,7 @@ const reviewer = require("./reviewerRouter");
 router.post("/autors", autor.createAutor);
 router.get("/autors", autor.getAutors);
 router.get("/autors/:id", autor.getAutor);
+router.get("/autors/:username", autor.getAutorByUsername);
 router.put("/autors/:id", autor.updateAutor);
 router.delete("/autors/:id", autor.deleteAutor);
 
