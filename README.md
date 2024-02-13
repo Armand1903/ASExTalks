@@ -22,3 +22,4 @@
 ### React
 ### Express
 ### Sequelize (ORM)
+### SQLite
